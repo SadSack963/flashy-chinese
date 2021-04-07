@@ -39,18 +39,9 @@ print(to_learn)
 print(f'\n\ngTTS.lang.tts_langs():\n{lang.tts_langs()}\n\n')
 
 
-def targ_audio():
+def audio(text, code):
     # Play Audio of word using Google Text-to-Speech
-    # 'zh-CN': 'Chinese', 'zh-TW': 'Chinese (Mandarin/Taiwan)', 'zh': 'Chinese (Mandarin)'
-    audio_output = gTTS(text=current_card[targ_lang_code], lang="zh")
-    audio_output.save("foreign_word.mp3")
-    playsound.playsound("foreign_word.mp3", True)
-    os.remove("foreign_word.mp3")
-
-
-def home_audio():
-    # Play Audio of word using Google Text-to-Speech
-    audio_output = gTTS(text=current_card[home_lang_code], lang="en")
+    audio_output = gTTS(text=text, lang=code)
     audio_output.save("english_word.mp3")
     playsound.playsound("english_word.mp3", True)
     os.remove("english_word.mp3")
@@ -77,8 +68,9 @@ def next_card():
     card_canvas.itemconfig(card_word, text=current_card[targ_lang_code], fill="black", font=("KaiTi", 108, "bold"))
     card_canvas.itemconfig(card_pronunciation, text=current_card[targ_prnc_code], fill="black")
 
-    window.after(100, func=targ_audio)
-    window.after(5000, func=targ_audio)
+    # 'zh-CN': 'Chinese', 'zh-TW': 'Chinese (Mandarin/Taiwan)', 'zh': 'Chinese (Mandarin)'
+    window.after(100, func=lambda: audio(text=current_card[targ_lang_code], code="zh"))
+    window.after(5000, func=lambda: audio(text=current_card[targ_lang_code], code="zh"))
 
     flip_timer = window.after(10000, func=flip_card)
 
@@ -91,7 +83,7 @@ def flip_card():
     card_canvas.itemconfig(card_word, text=current_card[home_lang_code], fill="white", font=("Ariel", 72, "bold"))
     card_canvas.itemconfig(card_pronunciation, text=current_card[targ_prnc_code], fill="white")
 
-    window.after(100, func=home_audio)
+    window.after(100, func=lambda: audio(text=current_card[home_lang_code], code="en"))
 
     flip_timer = window.after(5000, func=next_card)
 
