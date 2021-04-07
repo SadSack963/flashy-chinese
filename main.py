@@ -40,6 +40,7 @@ print(to_learn)
 
 def targ_audio():
     # Play Audio of word using Google Text-to-Speech
+    # 'zh-CN': 'Chinese', 'zh-TW': 'Chinese (Mandarin/Taiwan)', 'zh': 'Chinese (Mandarin)'
     audio_output = gTTS(text=current_card[targ_lang_code], lang="zh")
     audio_output.save("foreign_word.mp3")
     playsound.playsound("foreign_word.mp3", True)
@@ -76,8 +77,9 @@ def next_card():
     card_canvas.itemconfig(card_pronunciation, text=current_card[targ_prnc_code], fill="black")
 
     window.after(100, func=targ_audio)
+    window.after(5000, func=targ_audio)
 
-    flip_timer = window.after(5000, func=flip_card)
+    flip_timer = window.after(10000, func=flip_card)
 
 
 def flip_card():
