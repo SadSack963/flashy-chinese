@@ -6,12 +6,12 @@ import pandas
 import random
 
 
-# Audio suggested by HUGO https://www.udemy.com/course/100-days-of-code/learn/#questions/14256878
+# Audio suggested by HUGO
+# https://www.udemy.com/course/100-days-of-code/learn/#questions/14256878
 from gtts import gTTS, lang  # Google Text-to-Speech
 import playsound
 import os
 
-from functools import partial
 
 BACKGROUND_COLOR = "#B1DDC6"
 
@@ -24,10 +24,6 @@ home_lang_code = "en"
 home_lang_name = "English"
 new_filepath = f"data/words_to_learn_{targ_lang_code}.csv"
 
-# Google Text-to-Speech
-# Print out all supported language IETF codes
-# print(f'\n\ngTTS.lang.tts_langs():\n{lang.tts_langs()}\n\n')
-
 try:
     data = pandas.read_csv(new_filepath)
 except FileNotFoundError:
@@ -36,6 +32,11 @@ finally:
     to_learn = data.to_dict(orient="records")
 
 print(to_learn)
+
+
+# Google Text-to-Speech
+# Print out all supported language IETF codes
+print(f'\n\ngTTS.lang.tts_langs():\n{lang.tts_langs()}\n\n')
 
 
 def targ_audio():
